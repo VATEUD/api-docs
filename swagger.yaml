@@ -223,7 +223,7 @@ paths:
                     type: object
                     properties:
                       facility:
-                        type: integer
+                        type: string
                       staff:
                         type: object
                         items:
