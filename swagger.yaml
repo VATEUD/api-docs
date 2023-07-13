@@ -505,7 +505,7 @@ components:
           format: date-time
   securitySchemes:
     AuthorizationHeader:
-      type: APIKeyAuth (apiKey)
+      type: apiKey
       name: X-API-KEY
       in: header
   responses:
