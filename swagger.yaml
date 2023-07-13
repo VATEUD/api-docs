@@ -223,7 +223,7 @@ paths:
                     type: object
                     properties:
                       facility:
-                        $ref: '#/components/schemas/Facility'
+                        type: integer
                       staff:
                         type: object
                         properties:
@@ -388,6 +388,7 @@ components:
               nullable: true
               example:
                 - EDDF
+                - LTFM
               items:
                 type: string
             departure:
