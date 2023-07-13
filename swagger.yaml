@@ -226,19 +226,8 @@ paths:
                         type: integer
                       staff:
                         type: object
-                        properties:
-                          chief:
-                            $ref: '#/components/schemas/User'
-                          deputy:
-                            type: object
-                          ci:
-                            type: object
-                          ec:
-                            type: object
-                          fe:
-                            type: object
-                          wm:
-                            type: object
+                        items:
+                          $ref: '#/components/schemas/User'
                       controllers:
                         type: array
                         items:
