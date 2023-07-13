@@ -7,7 +7,7 @@ info:
   contact:
     email: webservices@vateud.net
 servers:
-  - url: https://vateud.net/api
+  - url: https://core.vateud.net/api
 tags:
   - name: user
   - name: facility
