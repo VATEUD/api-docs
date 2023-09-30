@@ -318,7 +318,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SoloCertification'
-  /facility/certifications:
     post:
       summary: Create a new solo certification.
       tags:
@@ -401,7 +400,6 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/certifications:
     delete:
       summary: Deletes a solo certification.
       tags:
@@ -499,7 +497,6 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/endorsements:
     post:
       summary: Create a new major endorsement.
       tags:
@@ -578,7 +575,6 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/endorsements:
     delete:
       summary: Deletes a major endorsement.
       tags:
