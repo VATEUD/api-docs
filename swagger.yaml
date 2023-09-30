@@ -135,16 +135,28 @@ paths:
           application/json:
             schema:
               type: object
+              required: ['instructor_cid','position','note','session_type']
               properties:
                 instructor_cid:
                   type: integer
                 position:
                   type: string
+                  description: 'Callsign of the position the session was held at.'
                 note:
                   type: string
+                  description: 'The training note/comments by instructor.'
                 session_type:
                   type: integer
+                  description: '0 for sweatbox, 1 for online, 2 for CPT, 3 for other.'
                   pattern: '[0-3]'
+                ots_pass:
+                  type: boolean
+                  description: 'If session type is 2 - specify ots_pass by boolean values'
+                file:
+                  type: binary
+                  description: This is the CPT sheet used if session type is 2. Optional.
+                
+                
       responses:
         '200':
           description: ''
@@ -157,6 +169,10 @@ paths:
                     type: string
                     enum:
                       - true
+                  notes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrainingNote'
         '400':
           description: ''
           content:
@@ -216,9 +232,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
-                    enum:
-                      - Fetched successfully
+                    type: boolean
                   data:
                     type: object
                     properties:
@@ -229,54 +243,9 @@ paths:
                         items:
                           $ref: '#/components/schemas/User'
                       controllers:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/User'
+                        type: integer
                       visitors:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/User'
-        '404':
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    enum:
-                      - This facility does not exist.
-        '401.1':
-          $ref: '#/components/responses/NoApiKey'
-        '401.2':
-          $ref: '#/components/responses/InvalidApiKey'
-  /facility/activity:
-    get:
-      summary: Returns vACC's activity from last 4 weeks.
-      tags:
-        - facility
-      security:
-        - AuthorizationHeader: []
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: string
-                    enum:
-                      - true
-                  data:
-                    type: object
-                    properties:
-                      cid:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Activity'
+                        type: integer
         '404':
           description: ''
           content:
@@ -308,9 +277,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
-                    enum:
-                      - true
+                    type: boolean
                   data:
                     type: array
                     items:
@@ -345,9 +312,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
-                    enum:
-                      - true
+                    type: boolean
                   data:
                     type: array
                     items:
@@ -410,6 +375,8 @@ components:
           type: string
         last_name:
           type: string
+        email:
+          type: string
         facility:
           type: integer
           description: ID of the user's vACC.
@@ -418,44 +385,30 @@ components:
         rating:
           type: integer
           description: User's VATSIM rating.
-        last_active:
-          type: string
-          description: Last time user accessed website.
-        flag_basic:
-          type: boolean
-          description: True if user has not completed Basic ATC Exam.
-        flag_is_visitor:
-          type: boolean
-          description: True if user is outside of VATEUD.
-        flag_xferOverride:
-          type: boolean
-          description: >-
-            True if user has been granted a transfer override (to avoid
-            restrictions).
         last_api_check:
           type: string
           description: Last time user was checked against VATSIM's API.
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
         email_preferences:
           type: integer
           description: Bitmap of user's email preferences.
+        preferences_read:
+          type: boolean
+          description: If they have viewed their email notification settings.
     TrainingNote:
       type: object
       properties:
         id:
           type: integer
-        cid:
+        user_cid:
           type: integer
         instructor_cid:
           type: integer
         facility_id:
           type: integer
           description: ID of the vACC the note was created in.
+        position_trained:
+          type: string
+          description: Callsign of the position this session was held at.
         training_note:
           type: string
         session_type:
@@ -465,17 +418,15 @@ components:
             - 1
             - 2
             - 3
+        marking_sheet:
+          type: string
+          description: URL of the CPT sheet (if uploaded)
         created_at:
           type: string
           format: date-time
         updated_at:
           type: string
           format: date-time
-        friendly_time:
-          type: string
-          format: date
-        instructor_name:
-          type: string
     Activity:
       type: object
       properties:
