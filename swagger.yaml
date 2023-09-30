@@ -297,6 +297,349 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /facility/certifications:
+    get:
+      summary: Returns all active vACC's solo certifications.
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SoloCertification'
+  /facility/certifications:
+    post:
+      summary: Create a new solo certification.
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['user_cid','position','instructor_cid','expiry_days']
+              properties:
+                user_cid:
+                  type: integer
+                position:
+                  type: string
+                  description: 'Callsign of the position.'
+                instructor_cid:
+                  type: integer
+                expiry_days:
+                  type: integer
+                  description: 'Number of days to issue solo certification for.'
+                  pattern: '[1-30]'
+                
+                
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  notes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SoloCertification'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  message:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - >-
+                        Instructor lacking permission or user not a resident or a visiting controller in your vACC.
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /facility/certifications:
+    delete:
+      summary: Deletes a solo certification.
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['certification_id']
+              properties:
+                certification_id:
+                  type: integer
+                
+                
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  notes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SoloCertification'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  message:
+                    type: array
+                    items: {}
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This certification does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /facility/endorsements:
+    get:
+      summary: Returns all active vACC's major endorsements.
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MajorEndorsement'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This facility does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /facility/endorsements:
+    post:
+      summary: Create a new major endorsement.
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['user_cid','position','instructor_cid']
+              properties:
+                user_cid:
+                  type: integer
+                position:
+                  type: string
+                  description: 'Callsign of the position.'
+                instructor_cid:
+                  type: integer
+                
+                
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  notes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MajorEndorsement'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  message:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - >-
+                        Instructor lacking permission or user not a resident or a visiting controller in your vACC.
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /facility/endorsements:
+    delete:
+      summary: Deletes a major endorsement.
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['endorsement_id']
+              properties:
+                endorsement_id:
+                  type: integer
+                
+                
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  notes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MajorEndorsement'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  message:
+                    type: array
+                    items: {}
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This endorsement does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
   /division/events:
     get:
       summary: Returns list of next 15 events.
@@ -427,16 +770,43 @@ components:
         updated_at:
           type: string
           format: date-time
-    Activity:
+    MajorEndorsement:
       type: object
       properties:
         id:
           type: integer
         user_cid:
           type: integer
-        time:
+        instructor_cid:
+          type: integer
+        position:
           type: string
-          description: Time in minutes that the user has controlled in your facility.
+        facility:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    SoloCertification:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_cid:
+          type: integer
+        instructor_cid:
+          type: integer
+        position:
+          type: string
+        expiry:
+          type: string
+          format: date-time
+        max_days:
+          type: integer
+        facility:
+          type: integer
         created_at:
           type: string
           format: date-time
