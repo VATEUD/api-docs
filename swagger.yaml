@@ -428,10 +428,8 @@ paths:
                 properties:
                   success:
                     type: boolean
-                  notes:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/SoloCertification'
+                  message:
+                    type: string
         '400':
           description: ''
           content:
@@ -603,10 +601,8 @@ paths:
                 properties:
                   success:
                     type: boolean
-                  notes:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/MajorEndorsement'
+                  message:
+                    type: string
         '400':
           description: ''
           content:
