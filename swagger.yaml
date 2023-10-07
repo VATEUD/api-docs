@@ -354,7 +354,7 @@ paths:
                 properties:
                   success:
                     type: boolean
-                  notes:
+                  data:
                     type: array
                     items:
                       $ref: '#/components/schemas/SoloCertification'
@@ -527,7 +527,7 @@ paths:
                 properties:
                   success:
                     type: boolean
-                  notes:
+                  data:
                     type: array
                     items:
                       $ref: '#/components/schemas/MajorEndorsement'
