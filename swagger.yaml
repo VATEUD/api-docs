@@ -262,7 +262,7 @@ paths:
           $ref: '#/components/responses/InvalidApiKey'
   /facility/events:
     get:
-      summary: Returns all vACCs events.
+      summary: Returns all events of the vACC.
       tags:
         - facility
       security:
@@ -368,38 +368,13 @@ paths:
                   hint:
                     type: array
                     items: {}
-        '403':
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    enum:
-                      - >-
-                        You do not have permission to view this controller's
-                        notes.
-        '404':
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    enum:
-                      - This user does not exist.
-                      - This facility does not exist.
         '401.1':
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
   /facility/certifications:
     get:
-      summary: Returns all active vACC's solo certifications.
+      summary: Returns all active solo certifications of the vACC.
       tags:
         - facility
       security:
@@ -561,7 +536,7 @@ paths:
           $ref: '#/components/responses/InvalidApiKey'
   /facility/endorsements:
     get:
-      summary: Returns all active vACC's major endorsements.
+      summary: Returns all active major endorsements of the vACC.
       tags:
         - facility
       security:
