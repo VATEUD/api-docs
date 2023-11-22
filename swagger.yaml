@@ -372,6 +372,175 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /facility/events/edit/{id}:
+    post:
+      summary: Edit vACC Event
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['name','description','user_cid','start','end','image_url']
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the event.' 
+                description:
+                  type: string
+                  description: 'Description of the event.'
+                user_cid:
+                  type: integer
+                  description: 'CID of the user uploading the event.'
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+                departure:
+                  type: array
+                  description: An array of departure airports.
+                  example: ['LTFM', EDDF]
+                arrival:
+                  type: array
+                  description: An array of arrival airports.
+                  example: ['LTFM', EDDF]
+                image_url:
+                  type: string
+                  description: URL of the event banner.
+                    
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum: false
+                  message:
+                    type: string
+                    enum:
+                      - >-
+                        You do not have the permission to edit this event.
+  /facility/events/delete/{id}:
+    delete:
+      summary: Delete vACC Event
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['user_cid']
+              properties:
+                user_cid:
+                  type: integer
+                  description: 'CID of the user uploading the event.'
+                    
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    enum:
+                      - true
+                  message:
+                    type: string
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum: false
+                  message:
+                    type: string
+                    enum:
+                      - >-
+                        You do not have the permission to delete this event.
   /facility/certifications:
     get:
       summary: Returns all active solo certifications of the vACC.
@@ -768,10 +937,6 @@ components:
           type: string
           format: date-time
         forum_url:
-          type: string
-        start_pretty:
-          type: string
-        end_pretty:
           type: string
     User:
       type: object
