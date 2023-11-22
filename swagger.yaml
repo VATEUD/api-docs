@@ -296,6 +296,107 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /facility/events/create:
+    post:
+      summary: Create a new vACC Event
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['name','description','user_cid','start','end','image_url']
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the event.' 
+                description:
+                  type: string
+                  description: 'Description of the event.'
+                user_cid:
+                  type: integer
+                  description: 'CID of the user uploading the event.'
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+                departure:
+                  type: array
+                  description: An array of departure airports.
+                  example: ['LTFM', EDDF]
+                arrival:
+                  type: array
+                  description: An array of arrival airports.
+                  example: ['LTFM', EDDF]
+                image_url:
+                  type: string
+                  description: URL of the event banner.
+                    
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - >-
+                        You do not have permission to view this controller's
+                        notes.
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+                      - This facility does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
   /facility/certifications:
     get:
       summary: Returns all active vACC's solo certifications.
@@ -685,9 +786,6 @@ components:
               example: null
               items:
                 type: string
-        facilities:
-          type: integer
-          description: Bitmap of the VATEUD vACCs responsible for the event.
         created_at:
           type: string
           format: date-time
