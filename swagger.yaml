@@ -14,6 +14,7 @@ tags:
   - name: facility/events
   - name: facility/solo
   - name: facility/endorsements
+  - name: facility/training/exams
   - name: division
 paths:
   /facility/user/{cid}:
@@ -971,6 +972,30 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /facility/training/exams:
+    get:
+      summary: "Return all active exams that can be assigned."
+      tags:
+        - facility/training
+      security: []
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Exams'
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'    
   /division/events:
     get:
       summary: Returns list of next 15 events.
@@ -993,6 +1018,31 @@ paths:
                       $ref: '#/components/schemas/Event'
 components:
   schemas:
+    Exams:
+      type: object
+      properties:
+        id:
+          type: integer
+        exam_name:
+          type: string
+        exam_status:
+          type: integer
+        required_questions:
+          type: integer
+        pass_percentage:
+          type: integer
+        retake_days:
+          type: integer
+        required_cbt:
+          type: boolean
+        premature_results:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     Event:
       type: object
       properties:
