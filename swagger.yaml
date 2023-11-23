@@ -174,7 +174,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TrainingNote'
-        '400':
+        '422':
           description: ''
           content:
             'application/json':
@@ -269,7 +269,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TrainingNote'
-        '400':
+        '422':
           description: ''
           content:
             'application/json':
@@ -450,7 +450,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Event'
-        '400':
+        '422':
           description: ''
           content:
             'application/json':
@@ -468,7 +468,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/events/edit/{id}:
+  /facility/events/{id}:
     post:
       summary: Edit vACC Event
       tags:
@@ -532,7 +532,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Event'
-        '400':
+        '422':
           description: ''
           content:
             'application/json':
@@ -565,7 +565,6 @@ paths:
                     enum:
                       - >-
                         You do not have the permission to edit this event.
-  /facility/events/delete/{id}:
     delete:
       summary: Delete vACC Event
       tags:
@@ -604,7 +603,7 @@ paths:
                       - true
                   message:
                     type: string
-        '400':
+        '422':
           description: ''
           content:
             'application/json':
@@ -699,7 +698,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SoloCertification'
-        '400':
+        '422':
           description: ''
           content:
             'application/json':
@@ -770,7 +769,7 @@ paths:
                     type: boolean
                   message:
                     type: string
-        '400':
+        '422':
           description: ''
           content:
             'application/json':
@@ -872,7 +871,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/MajorEndorsement'
-        '400':
+        '422':
           description: ''
           content:
             'application/json':
@@ -943,7 +942,7 @@ paths:
                     type: boolean
                   message:
                     type: string
-        '400':
+        '422':
           description: ''
           content:
             'application/json':
@@ -976,7 +975,7 @@ paths:
     get:
       summary: "Return all active exams that can be assigned."
       tags:
-        - facility/training
+        - facility/training/exams
       security: []
       responses:
         '200':
@@ -995,7 +994,160 @@ paths:
         '401.1':
           $ref: '#/components/responses/NoApiKey'
         '401.2':
-          $ref: '#/components/responses/InvalidApiKey'    
+          $ref: '#/components/responses/InvalidApiKey'  
+  /facility/training/exams/assign:
+    post:
+      summary: Assign a new exam.
+      tags:
+        - facility/training/exams
+      security:
+        - AuthorizationHeader: []
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['user_cid','exam_id','instructor_cid']
+              properties:
+                user_cid:
+                  type: integer
+                  description: 'The user to whom the exam is to be assigned.'
+                exam_id:
+                  type: integer
+                  description: 'Id of the exam to be assigned.'
+                instructor_cid:
+                  type: integer
+                  description: 'CID of the user assigning the exam.'
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExamAssignment'
+        '400':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum: false
+                  error:
+                    type: string
+                    enum:
+                      - This student already has an assignment pending for this exam.
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+        '403':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum: false
+                  message:
+                    type: string
+                    enum:
+                      - You do not have permission to assign this exam.
+                      - The instructor does not have permission to assign exams.
+                      - The controller you are assigning an exam for is not a home controller, or visitor in your vACC.
+    delete:
+      summary: Delete exam assignment
+      tags:
+        - facility/training/exams
+      security:
+        - AuthorizationHeader: []
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['id']
+              properties:
+                id:
+                  type: integer
+                  description: 'ID of the exam assignment.'
+                    
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+        '403':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum: false
+                  message:
+                    type: string
+                    enum:
+                      - You do not have the permission to delete this assignment.  
   /division/events:
     get:
       summary: Returns list of next 15 events.
@@ -1177,6 +1329,26 @@ components:
           type: integer
         facility:
           type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ExamAssignment: 
+      type: object
+      properties:
+        id:
+          type: integer
+        exam_id:
+          type: integer
+        user_cid:
+          type: integer
+        instructor_cid:
+          type: integer
+        expires:
+          type: string
+          format: date-time
         created_at:
           type: string
           format: date-time
