@@ -10,6 +10,7 @@ servers:
   - url: https://core.vateud.net/api
 tags:
   - name: facility
+  - name: facility/visitors
   - name: facility/user
   - name: facility/events
   - name: facility/solo
@@ -17,6 +18,211 @@ tags:
   - name: facility/training/exams
   - name: division
 paths:
+  /facility/visitors:
+    get:
+      summary: >-
+        Returns all pending visitor requests.
+      tags:
+        - facility/visitors
+      security:
+        - AuthorizationHeader: []
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VisitorRequest'
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This visitor request does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+
+  /facility/visitors/approve/{id}:
+    post:
+      summary: Approve a visiting request
+      tags:
+        - facility/visitors
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['user_cid']
+              properties:
+                user_cid:
+                  type: integer
+                  description: 'The user approving the request.'
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                    enum:
+                      - 'The visitor request has been approved successfully.'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - You do not have permission to approve this request.
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /facility/visitors/deny/{id}:
+    post:
+      summary: Deny a visiting request
+      tags:
+        - facility/visitors
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['user_cid', 'reject_reason']
+              properties:
+                user_cid:
+                  type: integer
+                  description: 'The user approving the request.'
+                reject_reason:
+                  type: string
+                  description: 'Rejection reason.'
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                    enum:
+                      - 'The visitor request has been rejected successfully.'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - You do not have permission to reject this request.
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
   /facility/user/{cid}:
     get:
       summary: Returns a user's details by their CID.
@@ -86,7 +292,7 @@ paths:
                     type: boolean
                     enum:
                       - true
-                  notes:
+                  data:
                     type: array
                     items:
                       $ref: '#/components/schemas/TrainingNote'
@@ -170,7 +376,7 @@ paths:
                     type: boolean
                     enum:
                       - true
-                  notes:
+                  data:
                     type: array
                     items:
                       $ref: '#/components/schemas/TrainingNote'
@@ -265,7 +471,7 @@ paths:
                     type: boolean
                     enum:
                       - true
-                  notes:
+                  data:
                     type: array
                     items:
                       $ref: '#/components/schemas/TrainingNote'
@@ -1598,6 +1804,25 @@ components:
           type: boolean
         exam_id:
           type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    VisitorRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_cid:
+          type: integer
+        reason:
+          type: string
+        status:
+          type: integer
+          enum: 
+            - 0
         created_at:
           type: string
           format: date-time
