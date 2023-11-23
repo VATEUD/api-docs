@@ -62,8 +62,7 @@ paths:
   /facility/user/{cid}/notes:
     get:
       summary: >-
-        Returns a user's notes by their CID. Please note this endpoint only
-        returns training notes made by your vACC.
+        Returns user's notes by their CID.
       tags:
         - facility/user
       security:
@@ -137,10 +136,11 @@ paths:
           application/json:
             schema:
               type: object
-              required: ['instructor_cid','position','note','session_type']
+              required: ['instructor_cid','position','session_type']
               properties:
                 instructor_cid:
                   type: integer
+                  description: 'The instructor conducting the session.'
                 position:
                   type: string
                   description: 'Callsign of the position the session was held at.'
@@ -149,16 +149,14 @@ paths:
                   description: 'The training note/comments by instructor.'
                 session_type:
                   type: integer
-                  description: '0 for sweatbox, 1 for online, 2 for CPT, 3 for other.'
-                  pattern: '[0-3]'
-                ots_pass:
-                  type: boolean
-                  description: 'If session type is 2 - specify ots_pass by boolean values'
+                  description: 'Type of session: 0 for sweatbox, 1 for online, 2 for other.'
+                  minimum: 0
+                  maximum: 2
                 file:
-                  type: binary
-                  description: This is the CPT sheet used if session type is 2. Optional.
-                
-                
+                  type: string
+                  format: binary
+                  description: 'Upload PDF as an alternative to notes'
+
       responses:
         '200':
           description: ''
@@ -200,8 +198,103 @@ paths:
                     type: string
                     enum:
                       - >-
-                        You do not have permission to view this controller's
-                        notes.
+                      You do not have permission to add notes to this controller.
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+                      - This facility does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /facility/user/{cid}/notes/cpt:
+    post:
+      summary: Create a CPT note for the user.
+      tags:
+        - facility/user
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['examiner_cid','position','cpt_pass']
+              properties:
+                examiner_cid:
+                  type: integer
+                  description: 'The examiner conducting the CPT'
+                position:
+                  type: string
+                  description: 'Callsign of the position the session was held at.'
+                note:
+                  type: string
+                  description: 'The training note/comments by examiner.'
+                cpt_pass:
+                  type: boolean
+                  description: 'Boolean value for CPT status.'
+                file:
+                  type: string
+                  format: binary
+                  description: 'Upload PDF as an alternative to notes'
+                    
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    enum:
+                      - true
+                  notes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrainingNote'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - >-
+                        You do not have permission to add notes to this controller.
         '404':
           description: ''
           content:
@@ -332,11 +425,11 @@ paths:
                 departure:
                   type: array
                   description: An array of departure airports.
-                  example: ['LTFM', EDDF]
+                  example: ['LTFM', 'EDDF']
                 arrival:
                   type: array
                   description: An array of arrival airports.
-                  example: ['LTFM', EDDF]
+                  example: ['LTFM', 'EDDF']
                 image_url:
                   type: string
                   description: URL of the event banner.
@@ -414,11 +507,11 @@ paths:
                 departure:
                   type: array
                   description: An array of departure airports.
-                  example: ['LTFM', EDDF]
+                  example: ['LTFM', 'EDDF']
                 arrival:
                   type: array
                   description: An array of arrival airports.
-                  example: ['LTFM', EDDF]
+                  example: ['LTFM', 'EDDF']
                 image_url:
                   type: string
                   description: URL of the event banner.
@@ -544,9 +637,9 @@ paths:
                     enum:
                       - >-
                         You do not have the permission to delete this event.
-  /facility/certifications:
+  /facility/solo:
     get:
-      summary: Returns all active solo certifications of the vACC.
+      summary: Returns all active solo endorsements of the vACC.
       tags:
         - facility/solo
       security:
@@ -930,7 +1023,9 @@ components:
             departure:
               type: array
               nullable: true
-              example: null
+              example:
+                - EDDF
+                - LTFM
               items:
                 type: string
         created_at:
