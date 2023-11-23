@@ -311,6 +311,82 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /facility/user/{cid}/upgrade:
+    post:
+      summary: Upgrade a user's rating.
+      tags:
+        - facility/user
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['new_rating','instructor_cid']
+              properties:
+                new_rating:
+                  type: integer
+                  description: 'The new rating to upgrade user to.'
+                  minimum: 2
+                  maximum: 5
+                instructor_cid:
+                  type: integer
+                  description: 'CID of the instructor requesting the upgrade.'
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                    enum:
+                      - 'Rating upgrade requested.'
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+                      - This facility does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
   /facility/roster:
     get:
       summary: Returns vACC's roster.
