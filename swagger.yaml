@@ -996,6 +996,25 @@ paths:
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'  
   /facility/training/exams/assign:
+    get:
+      summary: Returns a list of all assignments.
+      tags:
+        - facility/training/exams
+      security: []
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExamAssignment'
     post:
       summary: Assign a new exam.
       tags:
