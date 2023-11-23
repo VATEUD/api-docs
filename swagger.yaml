@@ -38,7 +38,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
+                    type: boolean
                     enum:
                       - true
                   data:
@@ -82,7 +82,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
+                    type: boolean
                     enum:
                       - true
                   notes:
@@ -166,7 +166,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
+                    type: boolean
                     enum:
                       - true
                   notes:
@@ -261,7 +261,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
+                    type: boolean
                     enum:
                       - true
                   notes:
@@ -442,7 +442,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
+                    type: boolean
                     enum:
                       - true
                   data:
@@ -524,7 +524,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
+                    type: boolean
                     enum:
                       - true
                   data:
@@ -598,7 +598,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: string
+                    type: boolean
                     enum:
                       - true
                   message:
@@ -1014,17 +1014,11 @@ components:
             arrival:
               type: array
               nullable: true
-              example:
-                - EDDF
-                - LTFM
               items:
                 type: string
             departure:
               type: array
               nullable: true
-              example:
-                - EDDF
-                - LTFM
               items:
                 type: string
         created_at:
