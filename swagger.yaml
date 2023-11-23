@@ -387,6 +387,49 @@ paths:
                   hint:
                     type: array
                     items: {}
+  /facility/user/{cid}/exams:
+    get:
+      summary: Returns all exams attempted by the user.
+      tags:
+        - facility/user
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: '#/components/schemas/ExamResult'
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+                      - This facility does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
   /facility/roster:
     get:
       summary: Returns vACC's roster.
@@ -1542,7 +1585,25 @@ components:
         updated_at:
           type: string
           format: date-time
-
+    ExamResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_cid:
+          type: integer
+        score:
+          type: integer
+        passed:
+          type: boolean
+        exam_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
   securitySchemes:
     AuthorizationHeader:
       type: apiKey
