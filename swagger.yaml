@@ -197,8 +197,7 @@ paths:
                   error:
                     type: string
                     enum:
-                      - >-
-                      You do not have permission to add notes to this controller.
+                      - You do not have permission to add notes to this controller.
         '404':
           description: ''
           content:
