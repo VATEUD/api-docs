@@ -33,7 +33,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -46,7 +46,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -77,7 +77,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -92,7 +92,7 @@ paths:
         '403':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -105,7 +105,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -133,7 +133,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          'application/json':
             schema:
               type: object
               required: ['instructor_cid','position','session_type']
@@ -161,7 +161,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -176,7 +176,7 @@ paths:
         '400':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -190,7 +190,7 @@ paths:
         '403':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -201,7 +201,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -230,7 +230,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          'application/json':
             schema:
               type: object
               required: ['examiner_cid','position','cpt_pass']
@@ -256,7 +256,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -271,7 +271,7 @@ paths:
         '400':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -285,7 +285,7 @@ paths:
         '403':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -297,7 +297,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -321,7 +321,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -343,7 +343,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -366,7 +366,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -379,7 +379,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -401,7 +401,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          'application/json':
             schema:
               type: object
               required: ['name','description','user_cid','start','end','image_url']
@@ -437,7 +437,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -452,7 +452,7 @@ paths:
         '400':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -483,7 +483,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          'application/json':
             schema:
               type: object
               required: ['name','description','user_cid','start','end','image_url']
@@ -519,7 +519,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -534,7 +534,7 @@ paths:
         '400':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -552,7 +552,7 @@ paths:
         '403':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -580,7 +580,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          'application/json':
             schema:
               type: object
               required: ['user_cid']
@@ -593,7 +593,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -606,7 +606,7 @@ paths:
         '400':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -624,7 +624,7 @@ paths:
         '403':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -647,7 +647,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -666,7 +666,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          'application/json':
             schema:
               type: object
               required: ['user_cid','position','instructor_cid','expiry_days']
@@ -688,7 +688,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -701,7 +701,7 @@ paths:
         '400':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -715,7 +715,7 @@ paths:
         '403':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -727,7 +727,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -748,7 +748,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          'application/json':
             schema:
               type: object
               required: ['certification_id']
@@ -761,7 +761,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -772,7 +772,7 @@ paths:
         '400':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -786,7 +786,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -809,7 +809,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -822,7 +822,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -843,7 +843,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          'application/json':
             schema:
               type: object
               required: ['user_cid','position','instructor_cid']
@@ -861,7 +861,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -874,7 +874,7 @@ paths:
         '400':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -888,7 +888,7 @@ paths:
         '403':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -900,7 +900,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -921,7 +921,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          'application/json':
             schema:
               type: object
               required: ['endorsement_id']
@@ -934,7 +934,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -945,7 +945,7 @@ paths:
         '400':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -959,7 +959,7 @@ paths:
         '404':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -981,7 +981,7 @@ paths:
         '200':
           description: ''
           content:
-            application/json:
+            'application/json':
               schema:
                 type: object
                 properties:
@@ -1148,7 +1148,7 @@ components:
     NoApiKey:
       description: No API key found in request.
       content:
-        application/json:
+        'application/json':
           schema:
             type: object
             properties:
@@ -1164,7 +1164,7 @@ components:
     InvalidApiKey:
       description: API key does not exist.
       content:
-        application/json:
+        'application/json':
           schema:
             type: object
             properties:
