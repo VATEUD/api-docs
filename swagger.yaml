@@ -42,17 +42,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/VisitorRequest'
-        '404':
-          description: ''
-          content:
-            'application/json':
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    enum:
-                      - This visitor request does not exist.
         '401.1':
           $ref: '#/components/responses/NoApiKey'
         '401.2':
