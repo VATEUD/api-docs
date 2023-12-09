@@ -648,13 +648,17 @@ paths:
                       facility:
                         type: string
                       staff:
-                        type: object
+                        type: array
                         items:
                           $ref: '#/components/schemas/User'
                       controllers:
-                        type: integer
+                        type: array
+                        description: 'Returns an array of User CIDs that are residents'
+                        example: [10000001, 10000002]
                       visitors:
-                        type: integer
+                        type: array
+                        description: 'Returns an array of User CIDs that are visitors.'
+                        example: [10000001, 10000002]
         '404':
           description: ''
           content:
@@ -706,7 +710,6 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/events/create:
     post:
       summary: Create a new vACC Event
       tags:
@@ -719,7 +722,7 @@ paths:
           'application/json':
             schema:
               type: object
-              required: ['name','description','user_cid','start','end','image_url']
+              required: ['name','description','user_cid','start','end','image_url','facilities','short_description']
               properties:
                 name:
                   type: string
@@ -730,6 +733,13 @@ paths:
                 user_cid:
                   type: integer
                   description: 'CID of the user uploading the event.'
+                short_description:
+                  type: string
+                  description: 'Short description of event for Discord (1000 chars max)'
+                facilities:
+                  type: array
+                  description: 'List of all facilities that can manage the event.'
+                  example: ['ADRIA', 'AUST', 'GER', 'TURK', 'NETH']
                 start:
                   type: string
                   format: date-time
@@ -801,7 +811,7 @@ paths:
           'application/json':
             schema:
               type: object
-              required: ['name','description','user_cid','start','end','image_url']
+              required: ['name','description','user_cid','start','end','image_url','facilities','short_description']
               properties:
                 name:
                   type: string
@@ -812,6 +822,13 @@ paths:
                 user_cid:
                   type: integer
                   description: 'CID of the user uploading the event.'
+                short_description:
+                  type: string
+                  description: 'Short description of event for Discord (1000 chars max)'
+                facilities:
+                  type: array
+                  description: 'List of all facilities that can manage the event.'
+                  example: ['ADRIA', 'AUST', 'GER', 'TURK', 'NETH']
                 start:
                   type: string
                   format: date-time
@@ -972,7 +989,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/SoloCertification'
     post:
-      summary: Create a new solo certification.
+      summary: Create a new solo endorsement.
       tags:
         - facility/solo
       security:
@@ -1054,7 +1071,7 @@ paths:
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
     delete:
-      summary: Deletes a solo certification.
+      summary: Deletes a solo endorsement.
       tags:
         - facility/solo
       security:
@@ -1114,7 +1131,7 @@ paths:
           $ref: '#/components/responses/InvalidApiKey'
   /facility/endorsements:
     get:
-      summary: Returns all active major endorsements of the vACC.
+      summary: Returns all active Tier 1 endorsements of the vACC.
       tags:
         - facility/endorsements
       security:
@@ -1149,7 +1166,7 @@ paths:
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
     post:
-      summary: Create a new major endorsement.
+      summary: Create a new Tier 1 endorsement.
       tags:
         - facility/endorsements
       security:
@@ -1227,7 +1244,7 @@ paths:
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
     delete:
-      summary: Deletes a major endorsement.
+      summary: Deletes a Tier 1 endorsement.
       tags:
         - facility/endorsements
       security:
