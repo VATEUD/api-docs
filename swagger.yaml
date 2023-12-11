@@ -1294,7 +1294,7 @@ paths:
           $ref: '#/components/responses/InvalidApiKey'
   /facility/training/exams:
     get:
-      summary: "Return all active exams that can be assigned."
+      summary: "Returns a list of all active exams that can be assigned to a user."
       tags:
         - facility/training/exams
       security: []
@@ -1318,7 +1318,7 @@ paths:
           $ref: '#/components/responses/InvalidApiKey'  
   /facility/training/exams/assign:
     get:
-      summary: Returns a list of all assignments.
+      summary: "Returns a list of all exam assignments (assigned to user)."
       tags:
         - facility/training/exams
       security: []
@@ -1490,7 +1490,7 @@ paths:
                       - You do not have the permission to delete this assignment.  
   /facility/training/exams/reassignments:
     get:
-      summary: Returns a list of all re-assignments.
+      summary: Returns a list of all re-assignments (awaiting to be assigned again by system).
       tags:
         - facility/training/exams
       security: []
