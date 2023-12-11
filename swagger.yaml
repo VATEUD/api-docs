@@ -1013,8 +1013,7 @@ paths:
                   type: integer
                   description: 'Number of days to issue solo certification for.'
                   pattern: '[1-30]'
-                
-                
+
       responses:
         '200':
           description: ''
@@ -1076,17 +1075,12 @@ paths:
         - facility/solo
       security:
         - AuthorizationHeader: []
-      requestBody:
-        required: true
-        content:
-          'application/json':
-            schema:
-              type: object
-              required: ['certification_id']
-              properties:
-                certification_id:
-                  type: integer
-                
+      parameters:
+        - in: path
+          name: solo_id
+          required: true
+          schema:
+            type: integer
                 
       responses:
         '200':
@@ -1249,16 +1243,12 @@ paths:
         - facility/endorsements
       security:
         - AuthorizationHeader: []
-      requestBody:
-        required: true
-        content:
-          'application/json':
-            schema:
-              type: object
-              required: ['endorsement_id']
-              properties:
-                endorsement_id:
-                  type: integer
+      parameters:
+        - in: path
+          name: endorsement_id
+          required: true
+          schema:
+            type: integer
                 
                 
       responses:
