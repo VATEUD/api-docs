@@ -1426,23 +1426,21 @@ paths:
                       - You do not have permission to assign this exam.
                       - The instructor does not have permission to assign exams.
                       - The controller you are assigning an exam for is not a home controller, or visitor in your vACC.
+  /facility/training/exams/assign/{id}:  
     delete:
       summary: Delete exam assignment
       tags:
         - facility/training/exams
       security:
         - AuthorizationHeader: []
-      requestBody:
-        required: true
-        content:
-          'application/json':
-            schema:
-              type: object
-              required: ['id']
-              properties:
-                id:
-                  type: integer
-                  description: 'ID of the exam assignment.'
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: 'ID of the exam assignment.'
+          schema:
+            type: integer
+                    
                     
       responses:
         '200':
@@ -1510,24 +1508,20 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ExamReassignment'
-
+  /facility/training/exams/reassignments/{id}:
     delete:
       summary: Delete exam re-assignment
       tags:
         - facility/training/exams
       security:
         - AuthorizationHeader: []
-      requestBody:
-        required: true
-        content:
-          'application/json':
-            schema:
-              type: object
-              required: ['id']
-              properties:
-                id:
-                  type: integer
-                  description: 'ID of the exam re-assignment.'
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: 'ID of the exam re-assignment.'
+          schema:
+            type: integer
                     
       responses:
         '200':
