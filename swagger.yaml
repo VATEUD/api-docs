@@ -441,8 +441,9 @@ paths:
                   type: string
                   description: 'The training note/comments by examiner.'
                 cpt_pass:
-                  type: boolean
+                  type: integer
                   description: 'Boolean value for CPT status.'
+                  enum: [0, 1]
                 file:
                   type: string
                   format: binary
@@ -1000,7 +1001,7 @@ paths:
           'application/json':
             schema:
               type: object
-              required: ['user_cid','position','instructor_cid','expiry_days']
+              required: ['user_cid','position','instructor_cid','expire_at']
               properties:
                 user_cid:
                   type: integer
@@ -1009,10 +1010,10 @@ paths:
                   description: 'Callsign of the position.'
                 instructor_cid:
                   type: integer
-                expiry_days:
-                  type: integer
-                  description: 'Number of days to issue solo certification for.'
-                  pattern: '[1-30]'
+                expire_at:
+                  type: string
+                  format: date-time
+                  description: 'The expiry date for the solo certification.'
 
       responses:
         '200':
@@ -1069,6 +1070,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /facility/solo/{solo_id}:
     delete:
       summary: Deletes a solo endorsement.
       tags:
@@ -1237,6 +1239,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /facility/endorsements/{endorsement_id}:
     delete:
       summary: Deletes a Tier 1 endorsement.
       tags:
@@ -1249,8 +1252,7 @@ paths:
           required: true
           schema:
             type: integer
-                
-                
+      
       responses:
         '200':
           description: ''
