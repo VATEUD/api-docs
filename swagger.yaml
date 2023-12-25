@@ -13,7 +13,6 @@ tags:
   - name: facility/visitors
   - name: facility/user
   - name: facility/events
-  - name: facility/solo
   - name: facility/endorsements
   - name: facility/training/exams
   - name: division
@@ -46,8 +45,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-
-  /facility/visitors/approve/{id}:
+  /facility/visitors/{cid}/approve:
     post:
       summary: Approve a visiting request
       tags:
@@ -56,7 +54,7 @@ paths:
         - AuthorizationHeader: []
       parameters:
         - in: path
-          name: id
+          name: cid
           required: true
           schema:
             type: integer
@@ -128,7 +126,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/visitors/deny/{id}:
+  /facility/visitors/{cid}/deny:
     post:
       summary: Deny a visiting request
       tags:
@@ -137,7 +135,7 @@ paths:
         - AuthorizationHeader: []
       parameters:
         - in: path
-          name: id
+          name: cid
           required: true
           schema:
             type: integer
@@ -208,6 +206,61 @@ paths:
                     type: string
                     enum:
                       - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /facility/visitors/{cid}/delete:
+    delete:
+      summary: Deletes/Removes a visitor.
+      tags:
+        - facility/visitors
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: integer
+                
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  message:
+                    type: array
+                    items: {}
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This visitor does not exist.
         '401.1':
           $ref: '#/components/responses/NoApiKey'
         '401.2':
@@ -972,7 +1025,7 @@ paths:
     get:
       summary: Returns all active solo endorsements of the vACC.
       tags:
-        - facility/solo
+        - facility/endorsements
       security:
         - AuthorizationHeader: []
       responses:
@@ -992,7 +1045,7 @@ paths:
     post:
       summary: Create a new solo endorsement.
       tags:
-        - facility/solo
+        - facility/endorsements
       security:
         - AuthorizationHeader: []
       requestBody:
@@ -1074,7 +1127,7 @@ paths:
     delete:
       summary: Deletes a solo endorsement.
       tags:
-        - facility/solo
+        - facility/endorsements
       security:
         - AuthorizationHeader: []
       parameters:
@@ -1125,7 +1178,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/endorsements:
+  /facility/endorsements/tier-1:
     get:
       summary: Returns all active Tier 1 endorsements of the vACC.
       tags:
@@ -1239,9 +1292,178 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/endorsements/{endorsement_id}:
+  /facility/endorsements/tier-1/{endorsement_id}:
     delete:
       summary: Deletes a Tier 1 endorsement.
+      tags:
+        - facility/endorsements
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: endorsement_id
+          required: true
+          schema:
+            type: integer
+      
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  message:
+                    type: array
+                    items: {}
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This endorsement does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /facility/endorsements/tier-2:
+    get:
+      summary: Returns all active Tier 2 endorsements of the vACC.
+      tags:
+        - facility/endorsements
+      security:
+        - AuthorizationHeader: []
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MajorEndorsement'
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This facility does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+    post:
+      summary: Create a new Tier 2 endorsement.
+      tags:
+        - facility/endorsements
+      security:
+        - AuthorizationHeader: []
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['user_cid','position','instructor_cid']
+              properties:
+                user_cid:
+                  type: integer
+                position:
+                  type: string
+                  description: 'Callsign of the position.'
+                instructor_cid:
+                  type: integer
+                
+                
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MajorEndorsement'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  message:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - >-
+                        Instructor lacking permission or user not a resident or a visiting controller in your vACC.
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /facility/endorsements/tier-2/{endorsement_id}:
+    delete:
+      summary: Deletes a Tier 2 endorsement.
       tags:
         - facility/endorsements
       security:
