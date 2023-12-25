@@ -17,7 +17,7 @@ tags:
   - name: facility/training/exams
   - name: division
 paths:
-  /visitors:
+  /facility/visitors:
     get:
       summary: >-
         Returns all pending visitor requests.
