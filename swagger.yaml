@@ -1516,7 +1516,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /:
+  /facility/training/exams:
     get:
       summary: "Returns a list of all active exams that can be assigned to a user."
       tags:
