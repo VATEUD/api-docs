@@ -1517,7 +1517,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/training/staff:
+  /staff:
     get:
       summary: "Returns a list of all vACC training staff."
       tags:
@@ -1541,31 +1541,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/training/exams:
-    get:
-      summary: "Returns a list of all active exams that can be assigned to a user."
-      tags:
-        - facility/training/exams
-      security: []
-      responses:
-        '200':
-          description: ''
-          content:
-            'application/json':
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Exams'
-        '401.1':
-          $ref: '#/components/responses/NoApiKey'
-        '401.2':
-          $ref: '#/components/responses/InvalidApiKey'  
-  /facility/training/assign/{cid}/mentor:
+  /assign/{cid}/mentor:
     post:
       summary: Grant mentor access to a user
       tags:
@@ -1646,7 +1622,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/training/remove/{cid}/mentor:
+  /remove/{cid}/mentor:
     post:
       summary: Remove mentor access to a user
       tags:
@@ -1727,7 +1703,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/training/assign/{cid}/examiner:
+  /assign/{cid}/examiner:
     post:
       summary: Grant examiner access to a user
       tags:
@@ -1808,7 +1784,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
-  /facility/training/remove/{cid}/examiner:
+  /remove/{cid}/examiner:
     post:
       summary: Remove examiner access to a user
       tags:
@@ -1889,6 +1865,30 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /facility/training/exams:
+    get:
+      summary: "Returns a list of all active exams that can be assigned to a user."
+      tags:
+        - facility/training/exams
+      security: []
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Exams'
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'  
   /assign:
     get:
       summary: "Returns a list of all exam assignments (assigned to user)."
