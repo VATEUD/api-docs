@@ -1090,7 +1090,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  error:
                     type: string
                     enum:
                       - Validation failure.
@@ -1157,7 +1157,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  error:
                     type: string
                     enum:
                       - Validation failure.
@@ -1259,7 +1259,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  error:
                     type: string
                     enum:
                       - Validation failure.
@@ -1326,7 +1326,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  error:
                     type: string
                     enum:
                       - Validation failure.
@@ -1428,7 +1428,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  error:
                     type: string
                     enum:
                       - Validation failure.
@@ -1495,7 +1495,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  error:
                     type: string
                     enum:
                       - Validation failure.
@@ -2422,7 +2422,7 @@ components:
           schema:
             type: object
             properties:
-              message:
+              error:
                 type: string
                 enum:
                   - Invalid API key.
