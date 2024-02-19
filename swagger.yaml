@@ -14,6 +14,7 @@ tags:
   - name: facility/user
   - name: facility/events
   - name: facility/endorsements
+  - name: facility/training
   - name: facility/training/exams
   - name: division
 paths:
@@ -1516,6 +1517,354 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /staff:
+    get:
+      summary: "Returns a list of all vACC training staff."
+      tags:
+        - facility/training
+      security: []
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AtcTrainingStaff'
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /assign/{cid}/mentor:
+    post:
+      summary: Grant mentor access to a user
+      tags:
+        - facility/training
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['user_cid']
+              properties:
+                user_cid:
+                  type: integer
+                  description: 'The user granting the access.'
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                    enum:
+                      - 'User assigned as mentor'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - User do not have access to assign mentors.
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /remove/{cid}/mentor:
+    post:
+      summary: Remove mentor access to a user
+      tags:
+        - facility/training
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['user_cid']
+              properties:
+                user_cid:
+                  type: integer
+                  description: 'The user revoking the access.'
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                    enum:
+                      - 'User removed as mentor'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - User do not have access to remove mentors.
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /assign/{cid}/examiner:
+    post:
+      summary: Grant examiner access to a user
+      tags:
+        - facility/training
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['user_cid']
+              properties:
+                user_cid:
+                  type: integer
+                  description: 'The user granting the access.'
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                    enum:
+                      - 'User assigned as an examiner'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - User do not have access to assign examiners.
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+  /remove/{cid}/examiner:
+    post:
+      summary: Remove examiner access to a user
+      tags:
+        - facility/training
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: ['user_cid']
+              properties:
+                user_cid:
+                  type: integer
+                  description: 'The user revoking the access.'
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                    enum:
+                      - 'User removed as an examiner'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+        '403':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - User do not have access to remove examiners.
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
   /facility/training/exams:
     get:
       summary: "Returns a list of all active exams that can be assigned to a user."
@@ -1800,6 +2149,23 @@ paths:
                       $ref: '#/components/schemas/Event'
 components:
   schemas:
+    AtcTrainingStaff:
+      type: object
+      properties:
+        id:
+          type: integer
+        cid:
+          type: integer
+        access_type:
+          type: integer
+          description: "0 = mentor, 1 = examiner, 2 = both"
+          enum: [0, 2]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     Exams:
       type: object
       properties:
