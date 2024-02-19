@@ -93,7 +93,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -107,7 +107,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - You do not have permission to approve this request.
@@ -118,7 +118,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -177,7 +177,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -191,7 +191,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - You do not have permission to reject this request.
@@ -202,7 +202,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -243,7 +243,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -257,7 +257,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This visitor does not exist.
@@ -299,7 +299,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -345,7 +345,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - >-
@@ -358,7 +358,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -429,7 +429,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -443,7 +443,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - You do not have permission to add notes to this controller.
@@ -454,7 +454,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -525,7 +525,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -539,7 +539,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - >-
@@ -551,7 +551,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -613,7 +613,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -629,7 +629,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -670,7 +670,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -720,7 +720,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This facility does not exist.
@@ -756,7 +756,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This facility does not exist.
@@ -835,7 +835,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -924,7 +924,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -995,7 +995,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -1089,7 +1089,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -1103,7 +1103,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - >-
@@ -1115,7 +1115,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -1156,7 +1156,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -1170,7 +1170,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This certification does not exist.
@@ -1206,7 +1206,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This facility does not exist.
@@ -1258,7 +1258,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -1272,7 +1272,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - >-
@@ -1284,7 +1284,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -1325,7 +1325,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -1339,7 +1339,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This endorsement does not exist.
@@ -1375,7 +1375,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This facility does not exist.
@@ -1427,7 +1427,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -1441,7 +1441,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - >-
@@ -1453,7 +1453,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This user does not exist.
@@ -1494,7 +1494,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -1508,7 +1508,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - This endorsement does not exist.
@@ -1610,7 +1610,7 @@ paths:
                   success:
                     type: boolean
                     enum: false
-                  error:
+                  message:
                     type: string
                     enum:
                       - This student already has an assignment pending for this exam.
@@ -1621,7 +1621,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -1685,7 +1685,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
                     enum:
                       - Validation failure.
@@ -2056,7 +2056,7 @@ components:
           schema:
             type: object
             properties:
-              error:
+              message:
                 type: string
                 enum:
                   - Invalid API key.
@@ -2072,7 +2072,7 @@ components:
           schema:
             type: object
             properties:
-              error:
+              message:
                 type: string
                 enum:
                   - Invalid API key.
