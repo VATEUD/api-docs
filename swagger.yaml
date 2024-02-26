@@ -708,11 +708,7 @@ paths:
                           $ref: '#/components/schemas/User'
                       controllers:
                         type: array
-                        description: 'Returns an array of User CIDs that are residents'
-                        example: [10000001, 10000002]
-                      visitors:
-                        type: array
-                        description: 'Returns an array of User CIDs that are visitors.'
+                        description: 'Returns an array of User CIDs that are rostered'
                         example: [10000001, 10000002]
         '404':
           description: ''
@@ -729,6 +725,134 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+    post:
+      summary: Add a controller to the roster.
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                    enum:
+                      - 'Controller added to the roster.'
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
+    delete:
+      summary: Remove a controller from the roster.
+      tags:
+        - facility
+      security:
+        - AuthorizationHeader: []
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+
+      responses:
+        '200':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                    enum:
+                      - 'Controller removed from the roster.'
+        '404':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - This user does not exist.
+        '401.1':
+          $ref: '#/components/responses/NoApiKey'
+        '401.2':
+          $ref: '#/components/responses/InvalidApiKey'
+        '422':
+          description: ''
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                      - Validation failure.
+                  hint:
+                    type: array
+                    items: {}
   /:
     get:
       summary: Returns all events of the vACC.
