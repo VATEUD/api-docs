@@ -725,6 +725,7 @@ paths:
           $ref: '#/components/responses/NoApiKey'
         '401.2':
           $ref: '#/components/responses/InvalidApiKey'
+  /roster/{cid}:
     post:
       summary: Add a controller to the roster.
       tags:
